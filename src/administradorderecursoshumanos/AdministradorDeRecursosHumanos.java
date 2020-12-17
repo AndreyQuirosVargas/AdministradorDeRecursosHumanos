@@ -54,14 +54,13 @@ public class AdministradorDeRecursosHumanos {
     }
     
     public void AdministrarAgencia(){
-        int opcion = Integer.parseInt(JOptionPane.showInputDialog("Ingrese:\n1)Ver Planilla de una agencia\n2)Cerrar agencia \n3)Contratar personas para una agencia\n4)Regresar"
-                + "\n3)Contratar personal\n)Salir"));
+        int opcion = Integer.parseInt(JOptionPane.showInputDialog("Ingrese:\n1)Ver Planilla de una agencia\n2)Cerrar agencia \n3)Contratar personas para una agencia\n4)Regresar"));
         switch(opcion){
             case 1:{
                 String nombreDeLaAgencia = JOptionPane.showInputDialog("Ingrese el nombre de la agencia para buscar");
-                for(Agencia elemento:Agencias){
-                    if(elemento.getNombre().equalsIgnoreCase(nombreDeLaAgencia)){
-                        JOptionPane.showMessageDialog(null, elemento.CalculoLocalDePlanilla());
+                for(int i = 0; i < CantidadDeAgencias; i++){
+                    if(Agencias[i].getNombre().equalsIgnoreCase(nombreDeLaAgencia)){
+                        JOptionPane.showMessageDialog(null, Agencias[i].CalculoLocalDePlanilla());
                     }
                 }
             break;}
@@ -91,9 +90,9 @@ public class AdministradorDeRecursosHumanos {
             
             case 3:{
                 String nombreDeLaAgencia = JOptionPane.showInputDialog("Ingrese el nombre de la agencia para buscar");
-                for(Agencia elemento:Agencias){
-                    if(elemento.getNombre().equalsIgnoreCase(nombreDeLaAgencia)){
-                        elemento.ContratacionDePersonal();
+                for(int i = 0 ;i < CantidadDeAgencias; i++){
+                    if(Agencias[i].getNombre().equalsIgnoreCase(nombreDeLaAgencia)){
+                        Agencias[i].ContratacionDePersonal();
                     }
                 }
             break;}
@@ -104,9 +103,9 @@ public class AdministradorDeRecursosHumanos {
     public void CalculoGlobalDePlanilla(){
         String planillas = "";
         double total = 0;
-        for(Agencia elemento:Agencias){
-            planillas += elemento.CalculoLocalDePlanilla()+"\n";
-            total += elemento.calculoDePlanilla();
+        for(int i = 0 ;i < CantidadDeAgencias; i++){
+            planillas += Agencias[i].CalculoLocalDePlanilla()+"\n";
+            total += Agencias[i].calculoDePlanilla();
         }
         if(Agencias.length == 0){JOptionPane.showMessageDialog(null, "No hay agencias"); return;}
         JOptionPane.showMessageDialog(null, planillas+"\n\nEl total de planillas corresponde a "+total);

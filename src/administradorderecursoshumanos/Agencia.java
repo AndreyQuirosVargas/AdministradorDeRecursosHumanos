@@ -62,8 +62,10 @@ public class Agencia {
             
             case 6:{
                 JOptionPane.showMessageDialog(null, "Regresando al menu principal");
-            break;}
-            default:{JOptionPane.showMessageDialog(null, "Regresando al menu principal", "Se ha cancelado el proceso", JOptionPane.INFORMATION_MESSAGE);}
+                return;}
+            default:{
+                JOptionPane.showMessageDialog(null, "Regresando al menu principal", "Se ha cancelado el proceso", JOptionPane.INFORMATION_MESSAGE);
+            return;}
         }
         empleados[CantidadDeEmpleados] = nueva;/*asignacion a la lista*/
         CantidadDeEmpleados++;
@@ -80,17 +82,17 @@ public class Agencia {
     public void AdministracionDePersonal(){
         String cedula = JOptionPane.showInputDialog("Ingrese la cedula a administrar");
         
-        for(Persona elemento: empleados){
-            if (elemento == null){return;}
-            if(elemento.getCedula().equalsIgnoreCase(cedula)){
-                int opcion = Integer.parseInt(JOptionPane.showInputDialog(elemento.getNombre()+"\nQue desea administrar:\n1)Cambiar estado\n2)Calcular salario\n3)Volver"));
+        for(int i = 0; i < CantidadDeEmpleados; i++){
+            if (empleados[i] == null){return;}
+            if(empleados[i].getCedula().equalsIgnoreCase(cedula)){
+                int opcion = Integer.parseInt(JOptionPane.showInputDialog(empleados[i].getNombre()+"\nQue desea administrar:\n1)Cambiar estado\n2)Calcular salario\n3)Volver"));
                 switch(opcion){
                     case 1:{
-                        elemento.setEstado();
+                        empleados[i].setEstado();
                     break;}
                     
                     case 2:{
-                        JOptionPane.showMessageDialog(null, "El salario de "+elemento.getNombre()+" corresponde a: "+elemento.CalcularSalario());
+                        JOptionPane.showMessageDialog(null, "El salario de "+empleados[i].getNombre()+" corresponde a: "+empleados[i].CalcularSalario());
                     break;}
                     default:{JOptionPane.showMessageDialog(null, "Volviendo al menu principal");}
                 }
@@ -101,8 +103,8 @@ public class Agencia {
     public String CalculoLocalDePlanilla(){
         String planilla = "";
         if(empleados.length == 0){return "No hay empleados en la agencia "+Nombre+"\n\n";}
-        for(Persona elemento: empleados){
-            planilla += "Trabajador con cedula "+elemento.getCedula()+" y nombre "+elemento.getNombre()+" recibe un total de "+elemento.CalcularSalario()+" colones\n";
+        for(int i = 0; i < CantidadDeEmpleados; i++){
+            planilla += "Trabajador con cedula "+empleados[i].getCedula()+" y nombre "+empleados[i].getNombre()+" recibe un total de "+empleados[i].CalcularSalario()+" colones\n";
         }
         return planilla+"El total de la plantilla de la empresa "+Nombre+" es de "+calculoDePlanilla()+" colones mensuales\n\n";
     }
@@ -110,9 +112,9 @@ public class Agencia {
     public double calculoDePlanilla(){
     double total = 0;
     if(empleados.length == 0){return 0;}
-        for(Persona elemento: empleados){
-            if (elemento == null){continue;}
-            total += elemento.CalcularSalario();
+        for(int i = 0; i < CantidadDeEmpleados; i++){
+            if (empleados[i] == null){continue;}
+            total += empleados[i].CalcularSalario();
         }
     return total;
     }
